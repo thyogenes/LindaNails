@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Painel Admin — LindaNails Pro</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="admin.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen" class="login-screen">
+  <div class="login-card">
+    <div class="login-logo">💅</div>
+    <h2>LindaNails Pro</h2>
+    <p>Acesse o painel administrativo</p>
+    <div class="form-group">
+      <label>E-mail</label>
+      <input type="email" id="loginEmail" placeholder="seu@email.com" />
+    </div>
+    <div class="form-group">
+      <label>Senha</label>
+      <input type="password" id="loginPass" placeholder="••••••••" />
+    </div>
+    <button class="btn-primary" id="btnLogin">Entrar</button>
+    <div id="loginError" class="login-error hidden"></div>
+    <a href="index.html" class="back-link">← Voltar ao site público</a>
+  </div>
+</div>
+
+<!-- PAINEL -->
+<div id="adminPanel" class="admin-panel hidden">
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span>💅</span>
+      <div>
+        <strong>LindaNails Pro</strong>
+        <small id="adminEmail">Admin</small>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-page="dashboard">📊 Dashboard</button>
+      <button class="nav-item" data-page="agenda">📅 Agenda</button>
+      <button class="nav-item" data-page="agendamentos">📋 Agendamentos</button>
+      <button class="nav-item" data-page="clientes">👤 Clientes</button>
+      <button class="nav-item" data-page="servicos">💅 Serviços</button>
+      <button class="nav-item" data-page="financeiro">💰 Financeiro</button>
+      <button class="nav-item" data-page="configuracoes">⚙️ Configurações</button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="index.html" class="nav-item">🌐 Site público</a>
+      <button class="nav-item danger" id="btnLogout">🚪 Sair</button>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-header">
+      <div>
+        <h2 id="pageTitle">Dashboard</h2>
+        <small id="pageDate"></small>
+      </div>
+      <span class="badge-admin">Admin</span>
+    </div>
+
+    <!-- DASHBOARD -->
+    <section id="page-dashboard" class="admin-page active">
+      <div class="kpi-grid">
+        <div class="kpi">
+          <span class="kpi-icon">📅</span>
+          <div><small>Agendamentos hoje</small><strong id="kpiHoje">0</strong></div>
+        </div>
+        <div class="kpi">
+          <span class="kpi-icon">📋</span>
+          <div><small>Total do mês</small><strong id="kpiMes">0</strong></div>
+        </div>
+        <div class="kpi">
+          <span class="kpi-icon">💰</span>
+          <div><small>Faturamento do mês</small><strong id="kpiFaturamento">R$ 0,00</strong></div>
+        </div>
+        <div class="kpi">
+          <span class="kpi-icon">👤</span>
+          <div><small>Total de clientes</small><strong id="kpiClientes">0</strong></div>
+        </div>
+      </div>
+      <div class="dashboard-grid">
+        <div class="panel">
+          <h3>📅 Próximos agendamentos</h3>
+          <div id="proximosAgend"></div>
+        </div>
+        <div class="panel">
+          <h3>💅 Serviços mais pedidos</h3>
+          <div id="topServicos"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AGENDA -->
+    <section id="page-agenda" class="admin-page">
+      <div class="panel">
+        <div class="agenda-header">
+          <button class="btn-outline-sm" id="btnSemanaAnterior">← Anterior</button>
+          <h3 id="semanaTitle">Esta semana</h3>
+          <button class="btn-outline-sm" id="btnProximaSemana">Próxima →</button>
+        </div>
+        <div id="agendaSemana" class="agenda-grid"></div>
+      </div>
+    </section>
+
+    <!-- AGENDAMENTOS -->
+    <section id="page-agendamentos" class="admin-page">
+      <div class="toolbar">
+        <input id="searchAgend" placeholder="🔍 Buscar cliente..." />
+        <select id="filterStatus">
+          <option value="">Todos os status</option>
+          <option value="pendente">Pendente</option>
+          <option value="confirmado">Confirmado</option>
+          <option value="concluido">Concluído</option>
+          <option value="cancelado">Cancelado</option>
+        </select>
+        <input type="date" id="filterData" />
+      </div>
+      <div id="listaAgendamentos" class="list-grid"></div>
+    </section>
+
+    <!-- CLIENTES -->
+    <section id="page-clientes" class="admin-page">
+      <div class="toolbar">
+        <input id="searchCliente" placeholder="🔍 Buscar cliente..." />
+      </div>
+      <div id="listaClientes" class="list-grid"></div>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section id="page-servicos" class="admin-page">
+      <div class="panel">
+        <h3>➕ Novo serviço</h3>
+        <div class="form-inline">
+          <input id="svcNome"    placeholder="Nome do serviço" />
+          <input id="svcPreco"   type="number" placeholder="Preço (R$)" />
+          <input id="svcDuracao" type="number" placeholder="Duração (min)" />
+          <input id="svcIcon"    placeholder="Emoji ícone" />
+          <button class="btn-primary" id="btnSalvarServico">➕ Adicionar</button>
+        </div>
+      </div>
+      <div id="listaServicosAdmin" class="list-grid"></div>
+    </section>
+
+    <!-- FINANCEIRO -->
+    <section id="page-financeiro" class="admin-page">
+      <div class="kpi-grid">
+        <div class="kpi">
+          <span class="kpi-icon">💚</span>
+          <div><small>Entradas do mês</small><strong id="finEntradas">R$ 0,00</strong></div>
+        </div>
+        <div class="kpi">
+          <span class="kpi-icon">❤️</span>
+          <div><small>Saídas do mês</small><strong id="finSaidas">R$ 0,00</strong></div>
+        </div>
+        <div class="kpi">
+          <span class="kpi-icon">💙</span>
+          <div><small>Saldo do mês</small><strong id="finSaldo">R$ 0,00</strong></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>➕ Novo lançamento</h3>
+        <div class="form-inline">
+          <select id="finTipo">
+            <option value="entrada">💚 Entrada</option>
+            <option value="saida">❤️ Saída</option>
+          </select>
+          <input id="finDesc"  placeholder="Descrição" />
+          <input id="finValor" type="number" placeholder="Valor (R$)" />
+          <select id="finCateg">
+            <option value="Serviço">Serviço</option>
+            <option value="Material">Material</option>
+            <option value="Aluguel">Aluguel</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Outros">Outros</option>
+          </select>
+          <input id="finData" type="date" />
+          <button class="btn-primary" id="btnSalvarFinanceiro">💾 Salvar</button>
+        </div>
+      </div>
+      <div id="listaFinanceiro" class="list-grid"></div>
+    </section>
+
+    <!-- CONFIGURAÇÕES -->
+    <section id="page-configuracoes" class="admin-page">
+      <div class="panel">
+        <h3>⚙️ Dados da Manicure</h3>
+        <div class="config-form">
+          <div class="form-group">
+            <label>👤 Nome</label>
+            <input id="cfgNome" placeholder="Nome da manicure" />
+          </div>
+          <div class="form-group">
+            <label>📱 WhatsApp</label>
+            <input id="cfgWhats" placeholder="(11) 99999-9999" />
+          </div>
+          <div class="form-group">
+            <label>📍 Endereço</label>
+            <input id="cfgEndereco" placeholder="Rua das Flores, 123" />
+          </div>
+          <div class="form-group">
+            <label>📸 Instagram (sem @)</label>
+            <input id="cfgInsta" placeholder="lindanailspro" />
+          </div>
+          <div class="form-group" style="grid-column:1/-1">
+            <label>🔗 Link público do agendamento</label>
+            <input id="cfgLink" readonly />
+            <button class="btn-outline-sm" id="btnCopiarLink" style="margin-top:8px">
+              📋 Copiar link
+            </button>
+          </div>
+          <button class="btn-primary" id="btnSalvarConfig" style="grid-column:1/-1">
+            💾 Salvar configurações
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+<div id="loading" class="loading hidden"><div class="spinner"></div></div>
+
+<script type="module" src="admin.js"></script>
+</body>
+</html>
