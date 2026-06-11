@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>LindaNails Pro — Agendamento Online</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Agende seu horário com a melhor manicure da cidade!" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#d946ef" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-icon">💅</span>
+      <div>
+        <h1>LindaNails Pro</h1>
+        <small>Salão de Beleza & Nail Art</small>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="#servicos">Serviços</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#agendar">Agendar</a>
+      <a href="#contato">Contato</a>
+      <a href="admin.html" class="btn-nav">Painel Admin</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle">☰</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-badge">✨ Agendamento Online 24h</span>
+    <h2>Unhas perfeitas para <span class="gradient-text">você brilhar</span></h2>
+    <p>Agende seu horário em poucos cliques. Sem espera, sem ligação. Confirme pelo WhatsApp!</p>
+    <div class="hero-btns">
+      <a href="#agendar" class="btn-primary">💅 Agendar Agora</a>
+      <a href="#servicos" class="btn-outline">Ver Serviços</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <strong>500+</strong>
+        <small>Clientes atendidas</small>
+      </div>
+      <div class="stat">
+        <strong>5⭐</strong>
+        <small>Avaliação</small>
+      </div>
+      <div class="stat">
+        <strong>3 anos</strong>
+        <small>de experiência</small>
+      </div>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="hero-card">
+      <div class="hero-emoji">💅✨🌸</div>
+      <p>Nail Art Premium</p>
+      <small>Técnicas exclusivas</small>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section id="servicos" class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>💅 Nossos Serviços</h2>
+      <p>Qualidade e beleza em cada detalhe</p>
+    </div>
+    <div id="listaServicos" class="services-grid"></div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section id="galeria" class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <h2>📸 Galeria de Trabalhos</h2>
+      <p>Confira alguns dos nossos trabalhos</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">💅 Nail Art Floral</div>
+      <div class="gallery-item">✨ Francesinha</div>
+      <div class="gallery-item">🌸 Ombré Rosa</div>
+      <div class="gallery-item">💎 Glitter Premium</div>
+      <div class="gallery-item">🎀 Decoração Baby</div>
+      <div class="gallery-item">🌈 Arco-íris</div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENDAMENTO -->
+<section id="agendar" class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>📅 Agendar Horário</h2>
+      <p>Escolha o serviço, data e horário disponível</p>
+    </div>
+
+    <div class="booking-card">
+
+      <!-- PASSO 1 -->
+      <div class="step active" id="step1">
+        <div class="step-header">
+          <span class="step-number">1</span>
+          <h3>Escolha o serviço</h3>
+        </div>
+        <div id="serviceSelect" class="service-select-grid"></div>
+        <button class="btn-primary" onclick="goStep(2)">Próximo →</button>
+      </div>
+
+      <!-- PASSO 2 -->
+      <div class="step" id="step2">
+        <div class="step-header">
+          <span class="step-number">2</span>
+          <h3>Escolha a data e horário</h3>
+        </div>
+        <div class="date-time-grid">
+          <div>
+            <label>📅 Data</label>
+            <input type="date" id="bookingDate" />
+          </div>
+          <div>
+            <label>🕐 Horário disponível</label>
+            <div id="timeSlots" class="time-slots">
+              <p>Selecione uma data primeiro</p>
+            </div>
+          </div>
+        </div>
+        <div class="step-btns">
+          <button class="btn-outline" onclick="goStep(1)">← Voltar</button>
+          <button class="btn-primary" onclick="goStep(3)">Próximo →</button>
+        </div>
+      </div>
+
+      <!-- PASSO 3 -->
+      <div class="step" id="step3">
+        <div class="step-header">
+          <span class="step-number">3</span>
+          <h3>Seus dados</h3>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>👤 Nome completo *</label>
+            <input type="text" id="clientName" placeholder="Seu nome" />
+          </div>
+          <div class="form-group">
+            <label>📱 WhatsApp *</label>
+            <input type="tel" id="clientPhone" placeholder="(11) 99999-9999" />
+          </div>
+          <div class="form-group">
+            <label>📧 E-mail (opcional)</label>
+            <input type="email" id="clientEmail" placeholder="seu@email.com" />
+          </div>
+          <div class="form-group">
+            <label>📝 Observações</label>
+            <textarea id="clientObs" placeholder="Alguma preferência?"></textarea>
+          </div>
+        </div>
+        <div class="step-btns">
+          <button class="btn-outline" onclick="goStep(2)">← Voltar</button>
+          <button class="btn-primary" id="btnConfirmar" onclick="confirmarAgendamento()">
+            ✅ Confirmar Agendamento
+          </button>
+        </div>
+      </div>
+
+      <!-- PASSO 4 -->
+      <div class="step" id="step4">
+        <div class="step-header">
+          <span class="step-number">✅</span>
+          <h3>Agendamento confirmado!</h3>
+        </div>
+        <div class="confirmation-box" id="confirmationBox"></div>
+        <a id="whatsappLink" href="#" target="_blank" class="btn-whatsapp">
+          📱 Confirmar pelo WhatsApp
+        </a>
+        <br><br>
+        <button class="btn-outline" onclick="novoAgendamento()">
+          🔄 Fazer novo agendamento
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato" class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <h2>📍 Contato e Localização</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <span>📱</span>
+        <h4>WhatsApp</h4>
+        <p id="contatoWhats">(11) 99999-9999</p>
+      </div>
+      <div class="contact-card">
+        <span>📍</span>
+        <h4>Endereço</h4>
+        <p id="contatoEndereco">Rua das Flores, 123</p>
+      </div>
+      <div class="contact-card">
+        <span>🕐</span>
+        <h4>Horário</h4>
+        <p>Seg–Sex: 9h às 19h<br>Sáb: 9h às 17h</p>
+      </div>
+      <div class="contact-card">
+        <span>📸</span>
+        <h4>Instagram</h4>
+        <p id="contatoInsta">@lindanailspro</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>© 2025 LindaNails Pro — Feito com 💅 e muito amor</p>
+</footer>
+
+<div id="toast" class="toast hidden"></div>
+<div id="loading" class="loading hidden"><div class="spinner"></div></div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
