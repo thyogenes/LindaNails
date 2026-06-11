@@ -1,0 +1,29 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Manicures — leitura pública, escrita só autenticado
+    match /manicures/{id} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Serviços — leitura pública, escrita só autenticado
+    match /services/{id} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Agendamentos — qualquer um pode criar, só autenticado lê/atualiza
+    match /appointments/{id} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Financeiro — só autenticado
+    match /finance/{id} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
